@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { ArrowRight, MapPin, CheckCircle, ShieldCheck, Droplets, Zap } from 'lucide-react';
 import { motion } from 'framer-motion';
+import VideoGallery from '@/components/VideoGallery';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
@@ -141,6 +142,9 @@ export default function Home() {
           </motion.div>
         </div>
       </section>
+
+      {/* YouTube Video Gallery */}
+      <VideoGallery />
     </div>
   );
 }
