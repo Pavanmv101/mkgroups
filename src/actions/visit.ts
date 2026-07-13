@@ -7,21 +7,21 @@ export async function submitSiteVisit(formData: FormData) {
   const supabase = await createClient();
   
   const visitData = {
-    property_id: formData.get("property_id"),
-    full_name: formData.get("full_name"),
-    phone_number: formData.get("phone_number"),
+    listing_id: formData.get("listing_id"),
+    name: formData.get("name"),
+    phone: formData.get("phone"),
     email: formData.get("email"),
     preferred_date: formData.get("preferred_date"),
-    message: formData.get("message")
+    notes: formData.get("notes")
   };
 
   const { error } = await supabase.from("site_visits").insert([visitData]);
 
   if (error) {
-    throw new Error(error.message);
+    return { error: error.message };
   }
 
-  // Not revalidating public paths because they don't show visits
+  return { success: true };
 }
 
 export async function getSiteVisits() {
