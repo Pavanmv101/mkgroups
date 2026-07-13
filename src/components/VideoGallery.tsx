@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from 'framer-motion';
-import { Youtube } from 'lucide-react';
+import { PlaySquare } from 'lucide-react';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
@@ -28,7 +28,7 @@ export default function VideoGallery() {
         >
           <div className="flex justify-center mb-4">
             <div className="bg-red-100 p-3 rounded-full text-red-600">
-              <Youtube className="w-8 h-8" />
+              <PlaySquare className="w-8 h-8" />
             </div>
           </div>
           <h2 className="text-3xl font-extrabold text-mk-primary-dark tracking-tight">Featured Projects</h2>
@@ -44,11 +44,11 @@ export default function VideoGallery() {
               whileInView="visible"
               viewport={{ once: true, margin: "-50px" }}
               variants={fadeInUp}
-              whileHover={{ y: -5, shadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" }}
+              whileHover={{ y: -5, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" }}
             >
               {id.includes("YOUR_VIDEO_ID") ? (
                 <div className="w-full h-full flex flex-col items-center justify-center bg-gray-100 p-6 text-center">
-                  <Youtube className="w-12 h-12 text-gray-400 mb-4" />
+                  <PlaySquare className="w-12 h-12 text-gray-400 mb-4" />
                   <p className="text-gray-500 font-medium">Add your YouTube Video ID here in<br/> <code className="text-sm bg-gray-200 px-2 py-1 rounded">src/components/VideoGallery.tsx</code></p>
                 </div>
               ) : (
