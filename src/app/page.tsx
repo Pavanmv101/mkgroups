@@ -44,7 +44,7 @@ export default function Home() {
             className="text-xl text-gray-200 mb-8 max-w-2xl mx-auto drop-shadow-sm"
             variants={fadeInUp}
           >
-            MK Group specializes in verified, high-quality land conversions for agricultural, farming, and residential communities.
+            MK Group specializes in verified, high-quality land conversions for agricultural, farming, and residential communities. The perfect legacy asset and long-term investment for forward-thinking professionals.
           </motion.p>
           <motion.div 
             className="flex justify-center space-x-4"
@@ -74,7 +74,7 @@ export default function Home() {
               <h2 className="text-4xl font-extrabold text-mk-primary-dark mb-4 tracking-tight">About MK Group</h2>
               <h3 className="text-2xl text-mk-brown mb-6 font-semibold">Your Trusted Partner in Land Investment</h3>
               <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-                With years of expertise in land acquisition and development, MK Group ensures that every parcel of land we offer is thoroughly vetted, converted, and ready for your specific needs.
+                With years of expertise in land acquisition across Karnataka, MK Group ensures that every parcel of land we offer is thoroughly vetted, converted, and ready for your specific needs.
               </p>
               <ul className="space-y-4">
                 <li className="flex items-start bg-white p-4 rounded-lg shadow-sm border border-gray-100">
@@ -83,7 +83,7 @@ export default function Home() {
                 </li>
                 <li className="flex items-start bg-white p-4 rounded-lg shadow-sm border border-gray-100">
                   <MapPin className="h-6 w-6 text-mk-gold mt-1 flex-shrink-0" />
-                  <span className="ml-4 text-gray-700 leading-relaxed"><strong>Prime Locations:</strong> Strategically chosen plots with excellent long-term growth potential.</span>
+                  <span className="ml-4 text-gray-700 leading-relaxed"><strong>Prime Locations:</strong> Strategically chosen plots in Karnataka with excellent long-term growth potential.</span>
                 </li>
               </ul>
             </motion.div>
@@ -123,7 +123,7 @@ export default function Home() {
             {[
               { icon: Zap, title: 'Electricity Access', desc: 'Reliable power connectivity established to all development boundaries.' },
               { icon: MapPin, title: 'Road Connectivity', desc: 'Well-planned internal roads connecting to major highways and towns.' },
-              { icon: Droplets, title: 'Water Availability', desc: 'Verified groundwater sources and planned irrigation infrastructure.' }
+              { icon: Droplets, title: 'High Groundwater Potential', desc: 'Thoroughly verified groundwater sources and planned irrigation infrastructure.' }
             ].map((feature, i) => (
               <motion.div 
                 key={i}

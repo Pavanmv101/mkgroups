@@ -31,8 +31,19 @@ export async function getListings() {
   const { data, error } = await supabase.from("listings").select("*").order("created_at", { ascending: false });
 
   if (error) {
-    throw new Error(error.message);
+    return { data: null, error: error.message };
   }
 
-  return data;
+  return { data, error: null };
+}
+
+export async function getListingById(id: string) {
+  const supabase = await createClient();
+  const { data, error } = await supabase.from("listings").select("*").eq("id", id).single();
+
+  if (error) {
+    return { data: null, error: error.message };
+  }
+
+  return { data, error: null };
 }
