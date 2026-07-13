@@ -15,13 +15,13 @@ CREATE TABLE public.listings (
 -- Create site_visits table
 CREATE TABLE public.site_visits (
   id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
-  property_id uuid REFERENCES public.listings(id) ON DELETE SET NULL,
-  full_name text NOT NULL,
-  phone_number text NOT NULL,
+  listing_id uuid REFERENCES public.listings(id) ON DELETE SET NULL,
+  name text NOT NULL,
+  phone text NOT NULL,
   email text NOT NULL,
   preferred_date timestamp with time zone NOT NULL,
-  message text,
-  status text NOT NULL DEFAULT 'New' CHECK (status IN ('New', 'Contacted', 'Confirmed', 'Cancelled')),
+  notes text,
+  status text NOT NULL DEFAULT 'Pending' CHECK (status IN ('Pending', 'Contacted', 'Confirmed', 'Cancelled')),
   created_at timestamp with time zone DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
