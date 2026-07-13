@@ -9,11 +9,9 @@ const fadeInUp = {
 };
 
 export default function VideoGallery() {
-  // Replace these with actual YouTube Video IDs from @mkagriprojects
-  // You can find the ID in a YouTube URL like this: watch?v=VIDEO_ID
   const videoIds = [
-    "YOUR_VIDEO_ID_1", 
-    "YOUR_VIDEO_ID_2"
+    "H5MPjuO63Rw", 
+    "Oi399f5ZqJQ"
   ];
 
   if (videoIds.length === 0) return null;
