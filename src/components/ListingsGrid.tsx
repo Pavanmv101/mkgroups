@@ -2,38 +2,55 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { MapPin, Maximize, ArrowRight, Filter, IndianRupee } from 'lucide-react';
+import { MapPin, Maximize, ArrowRight, Filter, IndianRupee, Search } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function ListingsGrid({ initialListings }: { initialListings: any[] }) {
+  const [searchQuery, setSearchQuery] = useState('');
   const [filterType, setFilterType] = useState('All');
   const [filterLocation, setFilterLocation] = useState('All');
 
   // Extract unique locations for the filter
-  const locations = ['All', ...Array.from(new Set(initialListings.map(l => l.location)))];
+  const locations = ['All', ...Array.from(new Set(initialListings.map(l => l.location || 'Unknown')))];
 
   const filteredListings = initialListings.filter(listing => {
     const matchType = filterType === 'All' || listing.zoning_type === filterType;
     const matchLocation = filterLocation === 'All' || listing.location === filterLocation;
-    return matchType && matchLocation;
+    const matchSearch = searchQuery === '' || 
+      (listing.title?.toLowerCase() || '').includes(searchQuery.toLowerCase()) || 
+      (listing.location?.toLowerCase() || '').includes(searchQuery.toLowerCase());
+    
+    return matchType && matchLocation && matchSearch;
   });
 
   return (
     <div>
       {/* Filters */}
       <div className="flex flex-col md:flex-row gap-4 mb-10 bg-white p-4 rounded-xl shadow-sm border border-gray-100">
+        <div className="flex-1 md:col-span-2">
+          <label className="block text-sm font-semibold text-gray-700 mb-1 flex items-center">
+            <Search className="w-4 h-4 mr-1 text-mk-primary" /> Search
+          </label>
+          <input 
+            type="text"
+            placeholder="Search by title or location..."
+            className="w-full border border-gray-200 rounded-lg shadow-sm focus:border-mk-primary focus:ring-mk-primary transition-colors bg-gray-50 p-2"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
         <div className="flex-1">
           <label className="block text-sm font-semibold text-gray-700 mb-1 flex items-center">
             <Filter className="w-4 h-4 mr-1 text-mk-primary" /> Zoning Type
           </label>
           <select 
-            className="w-full border-gray-200 rounded-lg shadow-sm focus:border-mk-primary focus:ring-mk-primary transition-colors cursor-pointer bg-gray-50 p-2"
+            className="w-full border border-gray-200 rounded-lg shadow-sm focus:border-mk-primary focus:ring-mk-primary transition-colors cursor-pointer bg-gray-50 p-2"
             value={filterType}
             onChange={(e) => setFilterType(e.target.value)}
           >
             <option value="All">All Types</option>
-            <option value="Agricultural">Agricultural</option>
-            <option value="Residential">Residential</option>
+            <option value="Agricultural">Agricultural Land</option>
+            <option value="Residential">Dry Land</option>
           </select>
         </div>
         <div className="flex-1">
@@ -41,7 +58,7 @@ export default function ListingsGrid({ initialListings }: { initialListings: any
             <MapPin className="w-4 h-4 mr-1 text-mk-primary" /> Location
           </label>
           <select 
-            className="w-full border-gray-200 rounded-lg shadow-sm focus:border-mk-primary focus:ring-mk-primary transition-colors cursor-pointer bg-gray-50 p-2"
+            className="w-full border border-gray-200 rounded-lg shadow-sm focus:border-mk-primary focus:ring-mk-primary transition-colors cursor-pointer bg-gray-50 p-2"
             value={filterLocation}
             onChange={(e) => setFilterLocation(e.target.value)}
           >
@@ -57,19 +74,18 @@ export default function ListingsGrid({ initialListings }: { initialListings: any
         <div className="text-center py-20 bg-white rounded-xl border border-gray-100 shadow-sm">
           <p className="text-gray-500 text-lg">No listings found matching your criteria.</p>
           <button 
-            onClick={() => { setFilterType('All'); setFilterLocation('All'); }}
+            onClick={() => { setFilterType('All'); setFilterLocation('All'); setSearchQuery(''); }}
             className="mt-4 text-mk-primary hover:text-mk-primary-dark font-medium underline"
           >
             Clear Filters
           </button>
         </div>
       ) : (
-        <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <motion.div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           <AnimatePresence>
             {filteredListings.map((listing) => (
               <motion.div 
                 key={listing.id}
-                layout
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
@@ -78,7 +94,7 @@ export default function ListingsGrid({ initialListings }: { initialListings: any
               >
                 <div className="relative h-48 overflow-hidden">
                   <img 
-                    src={listing.image_url || '/hero-bg.jpg'} 
+                    src={(listing.image_urls && listing.image_urls.length > 0) ? listing.image_urls[0] : (listing.image_url || '/hero-bg.jpg')} 
                     alt={listing.title} 
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
@@ -93,7 +109,7 @@ export default function ListingsGrid({ initialListings }: { initialListings: any
                     <span className={`px-3 py-1 rounded-full text-xs font-bold shadow-sm backdrop-blur-md bg-white/80 ${
                       listing.zoning_type === 'Agricultural' ? 'text-mk-primary-dark' : 'text-blue-800'
                     }`}>
-                      {listing.zoning_type}
+                      {listing.zoning_type === 'Agricultural' ? 'Agricultural Land' : listing.zoning_type === 'Residential' ? 'Dry Land' : listing.zoning_type}
                     </span>
                   </div>
                 </div>
@@ -109,9 +125,8 @@ export default function ListingsGrid({ initialListings }: { initialListings: any
                     </p>
                   </div>
                   <div className="pt-4 border-t border-gray-100 flex items-center justify-between">
-                    <p className="text-2xl font-extrabold text-mk-primary-dark flex items-center">
-                      <IndianRupee className="w-5 h-5 mr-1 text-gray-400" />
-                      {listing.price.toLocaleString('en-IN')}
+                    <p className="text-lg font-bold text-gray-700 flex items-center">
+                      Price on Request
                     </p>
                     <Link 
                       href={`/listings/${listing.id}`}

@@ -1,7 +1,7 @@
 import { getListings } from '@/actions/listing';
 import ListingsGrid from '@/components/ListingsGrid';
 
-export const revalidate = 0; // Disable caching to always fetch live data for now
+export const dynamic = 'force-dynamic';
 
 export default async function ListingsPage() {
   const { data: listings, error } = await getListings();
@@ -22,7 +22,7 @@ export default async function ListingsPage() {
           Available Properties
         </h1>
         <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-          Explore our handpicked selection of verified agricultural and residential land.
+          Explore our handpicked selection of verified agricultural and dry land.
         </p>
       </div>
       

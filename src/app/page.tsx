@@ -45,7 +45,7 @@ export default function Home() {
             className="text-xl text-gray-200 mb-8 max-w-2xl mx-auto drop-shadow-sm"
             variants={fadeInUp}
           >
-            MK Group specializes in verified, high-quality land conversions for agricultural, farming, and residential communities. The perfect legacy asset and long-term investment for forward-thinking professionals.
+            MK Group specializes in verified, high-quality land conversions for agricultural, farming, and dry land communities. The perfect legacy asset and long-term investment for forward-thinking professionals.
           </motion.p>
           <motion.div 
             className="flex justify-center space-x-4"
@@ -132,7 +132,7 @@ export default function Home() {
                 variants={fadeInUp}
                 whileHover={{ y: -5 }}
               >
-                <div className="mx-auto h-16 w-16 bg-mk-primary-light text-white rounded-2xl rotate-3 hover:rotate-6 transition-transform flex items-center justify-center mb-6 shadow-md">
+                <div className="mx-auto h-16 w-16 bg-mk-primary text-white rounded-2xl rotate-3 hover:rotate-6 transition-transform flex items-center justify-center mb-6 shadow-md">
                   <feature.icon className="w-8 h-8 -rotate-3 hover:-rotate-6 transition-transform" />
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-3">{feature.title}</h3>

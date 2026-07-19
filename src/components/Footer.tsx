@@ -1,18 +1,22 @@
+import Image from 'next/image';
+
 export default function Footer() {
   return (
     <footer className="bg-mk-gray-dark text-mk-bg py-8 mt-auto">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
-            <span className="text-xl font-bold tracking-tighter text-mk-gold">MK GROUP</span>
+            <div className="bg-white rounded-full p-2 inline-flex items-center justify-center w-24 h-24 mb-4 shadow-lg overflow-hidden">
+              <Image src="/logo.jpg" alt="MK Group" width={100} height={100} className="w-full h-full object-contain" />
+            </div>
             <p className="mt-4 text-sm text-gray-400">
-              Specializing in the development and conversion of land for agricultural, farming, and residential use.
+              Specializing in the development and conversion of land for agricultural, farming, and dry land use.
             </p>
           </div>
           <div>
             <h3 className="text-sm font-semibold uppercase tracking-wider text-gray-300">Contact</h3>
             <ul className="mt-4 space-y-2 text-sm text-gray-400">
-              <li>Email: info@mkgroup-agri.com</li>
+              <li>Email: mkagrilandprojects@gmail.com</li>
               <li>Phone: +91 87923 84199 / +91 73534 32333</li>
               <li>Address: Karnataka, India</li>
             </ul>
