@@ -68,9 +68,11 @@ export async function updateVisitStatus(id: string, status: string) {
       const { data: visitInfo } = await supabase.from("site_visits").select(`
         email, name, listings ( title )
       `).eq("id", id).single();
+      const listingData = visitInfo?.listings as any;
+      const title = Array.isArray(listingData) ? listingData[0]?.title : listingData?.title;
       
-      if (visitInfo?.email && visitInfo?.listings?.title) {
-        await sendVisitConfirmationEmail(visitInfo.email, visitInfo.name, visitInfo.listings.title);
+      if (visitInfo?.email && title) {
+        await sendVisitConfirmationEmail(visitInfo.email, visitInfo.name, title);
       }
     } catch (err) {
       console.error("Failed to send confirmation email:", err);
