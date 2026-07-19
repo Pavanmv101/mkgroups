@@ -1,16 +1,27 @@
 import { NextResponse } from 'next/server';
 import { SignJWT } from 'jose';
 import { SECRET } from '@/lib/admin-auth';
+import { supabaseAdmin } from '@/lib/supabase-admin';
+import bcrypt from 'bcryptjs';
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
     const { email, password } = body;
 
-    const adminEmail = process.env.ADMIN_EMAIL || 'mkagrilandprojects@gmail.com';
-    const adminPassword = process.env.ADMIN_PASSWORD || 'mkgroup2024!';
+    const { data: adminUser, error } = await supabaseAdmin
+      .from('admin_credentials')
+      .select('*')
+      .eq('email', email)
+      .single();
 
-    if (email !== adminEmail || password !== adminPassword) {
+    if (error || !adminUser) {
+      return NextResponse.json({ error: 'Invalid email or password' }, { status: 401 });
+    }
+
+    const isValidPassword = await bcrypt.compare(password, adminUser.password_hash);
+
+    if (!isValidPassword) {
       return NextResponse.json({ error: 'Invalid email or password' }, { status: 401 });
     }
 
