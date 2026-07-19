@@ -1,8 +1,15 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { usePathname } from 'next/navigation';
 
 export default function WhatsAppFloat() {
+  const pathname = usePathname();
+
+  if (pathname?.startsWith('/admin')) {
+    return null;
+  }
+
   const whatsappNumber = "918792384199";
   const whatsappMessage = encodeURIComponent("Hi MK Group, I would like to know more about your agricultural land investments.");
   const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;

@@ -4,9 +4,16 @@ import Link from 'next/link';
 import { Home, Phone, UserCircle, Menu, X } from 'lucide-react';
 import Image from 'next/image';
 import { useState } from 'react';
+import { usePathname } from 'next/navigation';
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
+
+  // Hide the global Navbar on admin pages since they have their own layout
+  if (pathname?.startsWith('/admin')) {
+    return null;
+  }
 
   return (
     <nav className="bg-white/90 backdrop-blur-md border-b border-gray-200/50 sticky top-0 z-50 shadow-sm">
