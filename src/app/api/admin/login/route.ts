@@ -8,11 +8,12 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
     const { email, password } = body;
+    const normalizedEmail = email.toLowerCase().trim();
 
     const { data: adminUser, error } = await supabaseAdmin
       .from('admin_credentials')
       .select('*')
-      .eq('email', email)
+      .eq('email', normalizedEmail)
       .single();
 
     if (error || !adminUser) {
