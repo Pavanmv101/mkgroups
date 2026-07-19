@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 
+import Link from "next/link";
 import { useState } from "react";
 import { LogOut, Home, Users, PlusCircle, Edit, Trash2, X, Upload, Mail } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -26,7 +27,6 @@ export default function AdminDashboardClient({ listings, visits, messages }: { l
   const handleLogout = () => {
     router.push("/api/admin/logout");
   };
-
 
   const handleStatusChange = async (id: string, newStatus: string) => {
     try {
@@ -132,15 +132,15 @@ export default function AdminDashboardClient({ listings, visits, messages }: { l
     <div className="flex h-screen overflow-hidden bg-gray-50">
       {/* Sidebar */}
       <div className="w-64 bg-mk-primary-dark text-white flex flex-col hidden md:flex">
-        <div className="p-6 border-b border-mk-primary flex items-center space-x-3">
+        <Link href="/" className="p-6 border-b border-mk-primary flex items-center space-x-3 hover:bg-mk-primary transition-colors cursor-pointer block">
           <div className="bg-white rounded-full p-1 inline-flex items-center justify-center w-14 h-14 shadow-sm overflow-hidden flex-shrink-0">
             <Image src="/logo.jpg" alt="MK Group" width={60} height={60} className="w-full h-full object-contain" />
           </div>
           <div>
             <h2 className="text-xl font-bold tracking-tighter text-mk-gold">MK GROUP</h2>
-            <p className="text-xs text-gray-300 mt-0.5">Admin Dashboard</p>
+            <p className="text-xs text-gray-300 mt-0.5">Admin Dashboard • Go to Site</p>
           </div>
-        </div>
+        </Link>
         <div className="flex-1 py-6 space-y-2 px-4">
           <button 
             onClick={() => setActiveTab("listings")}
@@ -172,12 +172,17 @@ export default function AdminDashboardClient({ listings, visits, messages }: { l
       <div className="flex-1 flex flex-col overflow-hidden relative">
         {/* Mobile Header */}
         <div className="md:hidden bg-mk-primary-dark text-white p-4 flex justify-between items-center">
-          <div className="flex items-center space-x-2">
+          <Link href="/" className="flex items-center space-x-2">
             <div className="bg-white rounded-full p-0.5 inline-flex items-center justify-center w-8 h-8 shadow-sm overflow-hidden flex-shrink-0">
               <Image src="/logo.jpg" alt="MK Group" width={40} height={40} className="w-full h-full object-contain" />
             </div>
-            <span className="font-bold">MK Group Admin</span>
-          </div>
+            <div className="flex flex-col">
+              <span className="font-bold leading-tight">MK Group Admin</span>
+              <span className="text-[10px] text-gray-300 leading-tight flex items-center">
+                <Home className="w-3 h-3 mr-1" /> Back to Website
+              </span>
+            </div>
+          </Link>
           <button onClick={handleLogout}><LogOut className="w-5 h-5" /></button>
         </div>
         {/* Mobile Tabs */}
