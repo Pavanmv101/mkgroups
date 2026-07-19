@@ -94,7 +94,7 @@ export default function Home() {
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.3 }}
             >
-              <img src="/hero-bg.jpg" alt="Agricultural landscape" className="w-full h-full object-cover" />
+              <img src="/about-bg.jpg" alt="Agricultural landscape" className="w-full h-full object-cover" />
             </motion.div>
           </motion.div>
         </div>
