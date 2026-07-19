@@ -59,7 +59,6 @@ export default function AdminLogin() {
               type="email"
               name="email"
               required
-              defaultValue="mkagrilandprojects@gmail.com"
               className="w-full border-gray-300 rounded-md shadow-sm focus:ring-mk-primary focus:border-mk-primary p-2.5 border"
             />
           </div>
